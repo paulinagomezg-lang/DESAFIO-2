@@ -8,6 +8,7 @@ CONFIG += c++17 cmdline
 
 SOURCES += \
         FECHA.cpp \
+        FOTOS.cpp \
         MENSAJES.cpp \
         main.cpp
 
@@ -18,4 +19,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     FECHA.h \
+    FOTOS.h \
     MENSAJES.h

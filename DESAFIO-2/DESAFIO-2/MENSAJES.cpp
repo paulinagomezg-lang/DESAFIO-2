@@ -60,7 +60,7 @@ Mensaje::Mensaje()
 
 // Constructor con datos: recibe mensajes y guarda copia propia de cada texto
 
-Mensaje::Mensaje(const char* Nuevo_Emisor, const char* Nuevo_Receptor, const Fecha& Nueva_Fecha, const char* Nuevo_Texto, bool Nuevo_Leido ){
+Mensaje::Mensaje(const char* Nuevo_Emisor, const char* Nuevo_Receptor, const Fecha& Nueva_Fecha, const char* Nuevo_Texto, bool Nuevo_Leidos ){
     Emisor = Copiar_Texto(Nuevo_Emisor);
     Receptor = Copiar_Texto(Nuevo_Receptor);
     Texto = Copiar_Texto(Nuevo_Texto);
