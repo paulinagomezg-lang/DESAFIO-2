@@ -8,6 +8,7 @@ SOURCES += \
         Fecha.cpp \
         MatrizAmistad.cpp \
         Mensajes.cpp \
+        MenuAmistades.cpp \
         PersistenciaUsuarios.cpp \
         Recursos.cpp \
         Usuario.cpp \
@@ -19,6 +20,7 @@ HEADERS += \
     Lista.h \
     MatrizAmistad.h \
     Mensajes.h \
+    MenuAmistades.h \
     Persistencia.h \
     Recursos.h \
     Usuario.h
