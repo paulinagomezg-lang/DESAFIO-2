@@ -1,0 +1,10 @@
+zoe|clave1|zoe@udea.edu.co|15/03/2004|Medellin|Colombia|01/08/2024
+ana|clave2|ana@udea.edu.co|02/11/2003|Cali|Colombia|10/02/2025
+beto|clave3|beto@udea.edu.co|31/02/2004|Bogota|Colombia|01/01/2025
+
+ana|otra|otra@udea.edu.co|01/01/2000|Pasto|Colombia|01/01/2020
+mario|clave4|mario@udea.edu.co|29/02/2004|Envigado|Colombia|05/05/2024
+
+pablo|111|pablo@udea.edu.co|31/03/2007|Riohacha|Colombia|28/02/2013
+paulina|111|paulipato@udea.edu.co|10/05/2005|Medellin|Colombia|24/12/2030
+simon|111|simon@udea.edu.co|14/02/2005|Medellin|Colombia|05/12/2038
