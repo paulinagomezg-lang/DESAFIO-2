@@ -1,7 +1,9 @@
 #ifndef ALBUMES_H
 #define ALBUMES_H
+#include <iostream>
 #include "LISTA.h"
 #include "FOTOS.h"
+using namespace std;
 
 //clase album de 0 o mas fotos con configuracion de privacidad
 //0 = Publico, 1= Privado, 2= Amigos
@@ -40,6 +42,9 @@ public:
     }
     int getPrivacidad() const{
         return Privacidad;
+    }
+    int Cantidad_Fotos() const{
+        return Fotos.getTamanio();
     }
     Foto& getFoto(int i){
         return Fotos[i]; //para dar o quitar like

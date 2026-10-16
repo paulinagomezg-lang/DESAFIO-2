@@ -1,6 +1,8 @@
 #ifndef FOTOS_H
 #define FOTOS_H
 #include"FECHA.h"
+#include <iostream>
+using namespace std;
 
 class Foto{
 

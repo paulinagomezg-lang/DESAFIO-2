@@ -1,6 +1,7 @@
 #ifndef MENSAJES_H
 #define MENSAJES_H
 #include "FECHA.h"
+#include <iostream>
 
 //Clase mensaje: Un mensaje de hasta 512 caracteres que un usuario le envia a otro.
 
