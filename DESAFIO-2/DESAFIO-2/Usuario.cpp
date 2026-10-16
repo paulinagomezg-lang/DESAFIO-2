@@ -1,11 +1,15 @@
 #include "Usuario.h"
 #include "Cadena.h"
+#include "Recursos.h"
+#include <cstdlib>
 
 Usuario** Usuario::usuarios = nullptr;
 
 int Usuario::cantidad = 0;
 
 int Usuario::capacidad = 0;
+
+MatrizAmistad Usuario::matriz;
 
 Usuario::Usuario()
 
@@ -133,6 +137,7 @@ void Usuario::liberarTodos() {
     usuarios = nullptr;
     cantidad = 0;
     capacidad = 0;
+    matriz.inicializar(0);
 }
 
 // ---------------- Merge Sort ----------------
@@ -207,4 +212,118 @@ int Usuario::buscar(const char* nombre) {
         else izquierda = medio + 1;                         // está en la mitad derecha
     }
     return -1;                                              // no existe
+}
+
+//-------------------- Amistades y solis -------------------
+
+void Usuario::prepararMatriz() {
+    matriz.inicializar(cantidad);
+}
+
+bool Usuario::esAmigoDe(const Usuario& otro) const {
+    return matriz.sonAmigos(indice, otro.indice);
+}
+
+int Usuario::cantidadAmigos() const {
+    return matriz.cantidadAmigos(indice);
+}
+
+void Usuario::obtenerAmigos(Lista<int>& destino) const {
+    matriz.amigosDe(indice, destino);
+}
+
+bool Usuario::tieneSolicitudDe(int indiceEmisor) const {
+    return solicitudesRecibidas.buscar(indiceEmisor) != -1;
+}
+
+void Usuario::agregarSolicitudRecibida(int indiceEmisor) {
+    if (indiceEmisor == indice) return;                     // de sí mismo: no
+    if (matriz.sonAmigos(indice, indiceEmisor)) return;     // ya son amigos: no
+    if (tieneSolicitudDe(indiceEmisor)) return;             // repetida: no
+    solicitudesRecibidas.agregar(indiceEmisor);
+}
+
+Usuario::ResultadoSolicitud Usuario::enviarSolicitud(Usuario& receptor) {
+    if (receptor.indice == indice) return ES_EL_MISMO_USUARIO;
+    if (esAmigoDe(receptor)) return YA_SON_AMIGOS;
+    if (receptor.tieneSolicitudDe(indice)) return SOLICITUD_YA_ENVIADA;
+    if (tieneSolicitudDe(receptor.indice)) return EL_OTRO_YA_TE_ENVIO;
+    receptor.solicitudesRecibidas.agregar(indice);          // queda en la lista del RECEPTOR
+    return SOLICITUD_ENVIADA;
+}
+
+bool Usuario::aceptarSolicitud(int posicion) {
+    if (posicion < 0 || posicion >= solicitudesRecibidas.tamano()) return false;
+    int emisor = solicitudesRecibidas[posicion];
+    solicitudesRecibidas.eliminarEn(posicion);              // sale de pendientes
+    return matriz.agregarAmistad(indice, emisor);           // enciende los 2 bits
+}
+
+// ---------------- Fotos de perfil ponderadas ----------------
+
+// Sub-ruta fija del enunciado: /users/(sub-ruta-X-fija)/usuario/...   AJUSTAR al valor del PDF
+static const char* RUTA_BASE = "/users/sub-ruta-X";
+
+// SUPUESTO: el peso depende de cuántos amigos en común hay con ese amigo.
+// Si el enunciado define otra regla, solo se cambia pesoAmistad().
+static const float PESO_BAJO  = 1.0f;    // 0 amigos en común
+static const float PESO_MEDIO = 2.5f;    // 1 a 5 amigos en común
+static const float PESO_ALTO  = 3.5f;    // 6 o más amigos en común
+static const int LIMITE_MEDIO = 5;
+
+void Usuario::rutaFotoPerfil(char* destino, int tamano) const {
+    destino[0] = '\0';
+    Cadena::anexar(destino, tamano, RUTA_BASE);
+    Cadena::anexar(destino, tamano, "/");
+    Cadena::anexar(destino, tamano, nombreUsuario);
+    Cadena::anexar(destino, tamano, "/profile.png");
+}
+
+float Usuario::pesoAmistad(int usuario, int amigo) {
+    int comunes = matriz.amigosEnComun(usuario, amigo);
+    if (comunes == 0) return PESO_BAJO;
+    if (comunes <= LIMITE_MEDIO) return PESO_MEDIO;
+    return PESO_ALTO;
+}
+
+int Usuario::elegirAmigosPonderados(int* elegidos, int k) const {
+    Lista<int> amigos;
+    obtenerAmigos(amigos);
+    int activos = amigos.tamano();
+    if (activos == 0 || k <= 0) return 0;
+
+    // 1. Peso de cada amigo y suma total
+    float* pesos = new float[activos];
+    float total = 0.0f;
+    for (int i = 0; i < activos; i++) {
+        pesos[i] = pesoAmistad(indice, amigos[i]);
+        total += pesos[i];
+        Recursos::sumar();
+    }
+
+    int cuantos = 0;
+    while (cuantos < k && activos > 0) {
+        // 2. Ruleta: número al azar en [0, total) y se recorren los pesos acumulados
+        float azar = (float)rand() / ((float)RAND_MAX + 1.0f) * total;
+        float acumulado = 0.0f;
+        int elegido = activos - 1;            // por si el redondeo deja el azar al final
+        for (int i = 0; i < activos; i++) {
+            Recursos::sumar();
+            acumulado += pesos[i];
+            if (azar < acumulado) {
+                elegido = i;
+                break;
+            }
+        }
+        elegidos[cuantos++] = amigos[elegido];
+
+        // 3. Se saca del sorteo: el último activo ocupa su lugar (O(1), sin desplazar)
+        total -= pesos[elegido];
+        pesos[elegido] = pesos[activos - 1];
+        amigos[elegido] = amigos[activos - 1];
+        activos--;
+    }
+
+    delete[] pesos;
+    return cuantos;
 }
