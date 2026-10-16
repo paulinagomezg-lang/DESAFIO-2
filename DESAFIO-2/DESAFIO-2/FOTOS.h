@@ -1,6 +1,5 @@
 #ifndef FOTOS_H
 #define FOTOS_H
-#include"FOTOS.h"
 #include"FECHA.h"
 
 class Foto{
@@ -45,7 +44,7 @@ public:
     bool setNombre (const char* Nuevo_Nombre);
     bool setFecha_de_Captura (const Fecha& Nueva_Fecha);
     bool setTamanio (unsigned int Nuevo_Tamanio);
-    bool setLikes (unsigned int Nuevos_Likes);
+    void setLikes (unsigned int Nuevos_Likes);
 
     //parte de los likes
     void Dar_Like();
@@ -56,10 +55,10 @@ public:
     bool Es_Valida() const;
 
     //Ruta estipulada por el cliente
-    void Mostrar_Ruta(ostream& Salida, const char* Usuario, const char* Album); //ruta de la foto sin reserva de memoria
-    void Mostrar_Ruta_Perfil(ostream& Salida, const char* Usuario);
+    void Mostrar_Ruta(ostream& Salida, const char* Usuario, const char* Album) const; //ruta de la foto sin reserva de memoria
+    static void Mostrar_Ruta_Perfil(ostream& Salida, const char* Usuario);
 
-    unsigned int Memoria(); //consulta bytes utilizados
+    unsigned int Memoria() const; //consulta bytes utilizados
 
     friend ostream& operator << (ostream& Salida, const Foto& F);
 
