@@ -68,7 +68,7 @@ int MenuAmistades::iniciarSesion() {
 
     for (int intento = 1; intento <= INTENTOS_LOGIN; intento++) {
 
-        cout << "\n=== Iniciar sesion (escribe 0 para salir) ===\n";
+        cout << "\n 8>--- Iniciar sesion o escribe 0 para salir (chota) ---<8 \n";
 
         cout << "Usuario: ";
 
@@ -116,12 +116,14 @@ void MenuAmistades::mostrarFotosPerfil(int usuario) {
 
         int cuantos = u->elegirAmigosPonderados(elegidos, FOTOS_A_MOSTRAR);
 
-        cout << "\n--- Fotos de perfil de tus amigos ---\n";
+        cout << "\n 8>--- Fotos de perfil de tus amigos ---<8 \n";
 
         if (cuantos == 0) {
 
             cout << "Aun no tienes amigos. Busca a alguien en Administrar amistades.\n";
+
             reportar("Fotos de perfil ponderadas");
+
             return;
         }
         char ruta[512];
@@ -239,7 +241,7 @@ void MenuAmistades::gestionarSolicitudes(int usuario) {
 
         if (solicitudes.vacia()) {
 
-            cout << "\nNo tienes solicitudes pendientes.\n";
+            cout << "\n ---No tienes solicitudes pendientes (7.7) --- \n";
             return;
         }
         cout << "\nSolicitudes recibidas:\n";
