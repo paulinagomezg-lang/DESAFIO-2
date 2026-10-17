@@ -109,12 +109,12 @@ bool Album::setPrivacidad(int Nueva_Privacidad){
 
 bool Album::Agregar_Foto(const Foto& Nueva_Foto){
     if (!Nueva_Foto.Es_Valida()) return false;
-    Fotos.Agregar(Nueva_Foto);
+    Fotos.agregar(Nueva_Foto);
     return true;
 }
 
 bool Album::Indice_Valido(int i) const{
-    return i >= 0 && i < Fotos.getTamanio();
+    return i >= 0 && i < Fotos.tamano();
 }
 
 //permisos de visualizacion
@@ -129,14 +129,14 @@ bool Album::Puede_Ver(bool Es_Dueno, bool Es_Amigo) const{
 //CARRUSEL para poder ver una por una las fotos donde cumpleuna manera circular donde por el documento cumple la visualizacion de perfil
 
 int Album::Siguiente(int Actual) const{
-    int P = Fotos.getTamanio(); //P almacena cantidad de fotos
+    int P = Fotos.tamano(); //P almacena cantidad de fotos
     if (P == 0) return -1;
 
     return (Actual + 1) % P; //de la ultima vuelve a la primera
 }
 
 int Album::Anterior(int Actual) const{
-    int P = Fotos.getTamanio();
+    int P = Fotos.tamano();
     if (P == 0) return -1;
 
     return (Actual -1 + P) % P; //de 0 pasa a la ultima
@@ -180,11 +180,11 @@ const char* Album::Texto_Privacidad(int Tipo){
 //memoria total del album obje+nom+arreg de lista+nom cada foto
 
 unsigned int Album:: Memoria() const{
-    unsigned int Total = sizeof(Album) + (Longitud(Nombre) + 1) + Fotos.Memoria();
+    unsigned int Total = sizeof(Album) + (Longitud(Nombre) + 1) + Fotos.memoria();
 
     //cada foto solo se le suma la parte dinamica que es el nombre ya que size ya esta en foto.memoria
 
-    for (int i = 0; i < Fotos.getTamanio(); i++){
+    for (int i = 0; i < Fotos.tamano(); i++){
         Total += Fotos[i].Memoria() - sizeof(Foto);
     }
     return Total;
@@ -193,6 +193,6 @@ unsigned int Album:: Memoria() const{
 //Funcion amiga
 
 ostream& operator<<(ostream& Salida, const Album& A){
-    Salida <<A.Nombre << "("  << Album::Texto_Privacidad(A.Privacidad) << ", " << A.Fotos.getTamanio() << " fotos)";
+    Salida <<A.Nombre << "("  << Album::Texto_Privacidad(A.Privacidad) << ", " << A.Fotos.tamano() << " fotos)";
     return Salida;
 }
