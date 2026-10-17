@@ -1,7 +1,7 @@
 #ifndef ALBUMES_H
 #define ALBUMES_H
 #include <iostream>
-#include "LISTA.h"
+#include "Lista.h"
 #include "FOTOS.h"
 using namespace std;
 
@@ -27,7 +27,7 @@ public:
     //constructores y destructor
 
     Album();
-    Album (const char* Nuevo_Nombre, int Nuevo_Privacidad);
+    Album (const char* Nuevo_Nombre, int Nueva_Privacidad);
     Album (const Album& Otro); //de copia
     ~Album(); //destructor
 
@@ -44,7 +44,7 @@ public:
         return Privacidad;
     }
     int Cantidad_Fotos() const{
-        return Fotos.getTamanio();
+        return Fotos.tamano();
     }
     Foto& getFoto(int i){
         return Fotos[i]; //para dar o quitar like
