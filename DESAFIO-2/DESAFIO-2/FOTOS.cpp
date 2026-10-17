@@ -145,7 +145,7 @@ bool Foto::Nombre_Valido(const char* Revisar_Nombre){
 }
 
 bool Foto::Es_Valida() const{
-        return Nombre_Valido(Nombre) && Fecha_de_Captura.esValida() && Tamanio > 0;
+    return Nombre_Valido(Nombre) && Fecha_de_Captura.esValida() && Tamanio > 0;
 }
 
 //impresion de las rutas como lo puso el profe
@@ -170,7 +170,6 @@ ostream& operator << (ostream& Salida, const Foto& F){
     Salida << F.Nombre << "| Captura: " << F.Fecha_de_Captura << "|Tamanio: " << F.Tamanio << "bytes" << "| Likes: "<< F.Likes;
     return Salida;
 }
-
 
 
 

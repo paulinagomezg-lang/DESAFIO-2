@@ -2,7 +2,7 @@
 #define USUARIO_H
 
 #include <iostream>
-#include "Fecha.h"
+#include "FECHA.h"
 #include "Lista.h"
 #include "MatrizAmistad.h"
 

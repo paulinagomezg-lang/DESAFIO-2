@@ -4,10 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        ALBUMES.cpp\
+        ALBUMES.cpp \
         Cadena.cpp \
-        Fecha.cpp \
-        FOTOS.cpp\
+        FECHA.cpp \
+        FOTOS.cpp \
         MatrizAmistad.cpp \
         Mensajes.cpp \
         MenuAmistades.cpp \
@@ -17,10 +17,10 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
-    ALBUMES.h\
+    ALBUMES.h \
     Cadena.h \
-    Fecha.h \
-    FOTOS.h\
+    FECHA.h \
+    FOTOS.h \
     Lista.h \
     MatrizAmistad.h \
     Mensajes.h \
