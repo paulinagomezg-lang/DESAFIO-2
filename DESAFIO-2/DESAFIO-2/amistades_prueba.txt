@@ -1,0 +1,6 @@
+ana|mario
+ana|zoe
+mario|zoe
+pablo|paulina
+pablo|simon
+paulina|simon
