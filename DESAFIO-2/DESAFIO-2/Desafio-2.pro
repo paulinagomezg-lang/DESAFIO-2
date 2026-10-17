@@ -4,7 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        ALBUMES.cpp \
         Cadena.cpp \
+        FOTOS.cpp \
         Fecha.cpp \
         MatrizAmistad.cpp \
         Mensajes.cpp \
@@ -15,7 +17,9 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
+    ALBUMES.h \
     Cadena.h \
+    FOTOS.h \
     Fecha.h \
     Lista.h \
     MatrizAmistad.h \
