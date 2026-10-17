@@ -6,8 +6,8 @@ CONFIG -= qt
 SOURCES += \
         ALBUMES.cpp \
         Cadena.cpp \
+        FECHA.cpp \
         FOTOS.cpp \
-        Fecha.cpp \
         MatrizAmistad.cpp \
         Mensajes.cpp \
         MenuAmistades.cpp \
@@ -19,8 +19,8 @@ SOURCES += \
 HEADERS += \
     ALBUMES.h \
     Cadena.h \
+    FECHA.h \
     FOTOS.h \
-    Fecha.h \
     Lista.h \
     MatrizAmistad.h \
     Mensajes.h \

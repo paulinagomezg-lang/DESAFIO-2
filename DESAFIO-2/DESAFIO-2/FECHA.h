@@ -1,5 +1,7 @@
 #ifndef FECHA_H
 #define FECHA_H
+#include <iostream>
+using namespace std;
 
 //Guarda el dia, mes y año en un entero con el formato AAAMMDD.
 //Ocupa 4 bytes y compara dos fechas en un solo entero, agiliza el ordenamiento de mensajes y la busqueda en rango.
