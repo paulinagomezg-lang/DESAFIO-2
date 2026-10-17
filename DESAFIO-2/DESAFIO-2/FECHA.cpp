@@ -27,7 +27,7 @@ void Fecha::setFecha(int Dia, int Mes, int Anio){
         Valor = 0;
         return;
     }
-    Valor = Anio*1000 + Mes*100 + Dia;
+    Valor = Anio*10000 + Mes*100 + Dia;
 }
 
 //Setters individuales. Se arma la fecha candidata con el campo nuevo y los otros dos actuales; si no es válida no se modifica
