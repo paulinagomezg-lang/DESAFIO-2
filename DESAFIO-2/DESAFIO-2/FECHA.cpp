@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #include "FECHA.h"
+#include "Recursos.h"
 
 Fecha::Fecha() : Valor(0) {}
 
@@ -64,6 +65,7 @@ void Fecha::setFecha(const char* Texto){
     int Digitos = 0;
 
     for (int i = 0; Texto[i] != '\0'; i++){
+        Recursos::sumar();
         char C = Texto[i];
         if (C >= '0' && C <= '9'){
             if (++Digitos > 4) return; //Evita desbordes de numeros largos

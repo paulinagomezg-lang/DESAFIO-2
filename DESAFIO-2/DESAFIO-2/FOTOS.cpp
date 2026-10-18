@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #include"FOTOS.h"
+#include "Recursos.h"
 
 //Parte fija de la ruta. es la misma hasta que el docente la cambie
 
@@ -13,6 +14,7 @@ int Foto::Longitud(const char* Cadena){
     int G = 0;
     while (Cadena[G] != '\0') {
         G++;
+        Recursos::sumar();
     }
     return G;
 }
@@ -24,6 +26,7 @@ char* Foto::Copiar_Texto(const char* Origen){
     char* PUNTERO_BLOQUE_MEMORIA = new char [G+1];
     for (int i = 0; i < G; i++){
         PUNTERO_BLOQUE_MEMORIA[i] = Origen[i];
+        Recursos::sumar();
     }
     PUNTERO_BLOQUE_MEMORIA[G] ='\0';
     return PUNTERO_BLOQUE_MEMORIA;
@@ -36,6 +39,7 @@ bool Foto::Comparacion_Caracter(const char* A, const char*B){
     int i = 0;
     while (A[i] != '\0' && A[i] == B[i]) {
         i++;
+        Recursos::sumar();
     }
     return A[i] == B[i];
 }
@@ -136,6 +140,7 @@ void Foto::Quitar_Like(){
 bool Foto::Nombre_Valido(const char* Revisar_Nombre){
     if (Revisar_Nombre == nullptr || Revisar_Nombre[0] == '\0') return false;
     for(int i = 0; Revisar_Nombre[i] != '\0'; i++){
+        Recursos::sumar();
         char C = Revisar_Nombre[i];
         if (C == '|' || C == '/' || C == ' '){
             return false; //aca rompe el archivo o la ruta
