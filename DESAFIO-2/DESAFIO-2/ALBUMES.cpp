@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #include"ALBUMES.h"
+#include "Recursos.h"
 
 int Album::Longitud(const char* Cadena){ //cuenta los caracteres hasta \0
     if (Cadena == nullptr) return 0;
@@ -185,6 +186,7 @@ unsigned int Album:: Memoria() const{
     //cada foto solo se le suma la parte dinamica que es el nombre ya que size ya esta en foto.memoria
 
     for (int i = 0; i < Fotos.tamano(); i++){
+        Recursos::sumar();
         Total += Fotos[i].Memoria() - sizeof(Foto);
     }
     return Total;

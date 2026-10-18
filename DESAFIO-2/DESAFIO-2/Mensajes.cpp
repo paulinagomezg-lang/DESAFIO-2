@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #include "MENSAJES.h"
+#include "Recursos.h"
 
 //Funciones auxiliares: Base sin utilizar string.
 
@@ -30,6 +31,7 @@ bool Mensaje::Comparacion_Caracter(const char* A, const char* B){
 bool Mensaje::Usuario_Valido(const char* Usuario){ //revisar si el usuario es valido
     if(Usuario == nullptr || Usuario[0] == '\0') return false;
     for(int i = 0; Usuario[i] != '\0'; i++){
+        Recursos::sumar();
         if(Usuario[i] == '|' || Usuario[i] == ' ') return false;
     }
     return true;
@@ -40,6 +42,7 @@ bool Mensaje::Texto_Valido(const char* Revisar_Texto){ //tres validaciones de se
     bool Tiene_Contenido = false; //revisa si hay contenido antes de tirar false
     int G = 0;
     while (Revisar_Texto[G] != '\0') {
+        Recursos::sumar();
         if(Revisar_Texto[G] != ' ' && Revisar_Texto[G] != '\t') Tiene_Contenido = true;
         G++;
         if(G > TEXTO_MAX) return false; //Se detine  cuando supera el limite
