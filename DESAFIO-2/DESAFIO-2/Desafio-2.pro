@@ -11,10 +11,12 @@ SOURCES += \
         MatrizAmistad.cpp \
         Mensajes.cpp \
         MenuAmistades.cpp \
+        PersistenciaContenido.cpp \
         PersistenciaUsuarios.cpp \
         Recursos.cpp \
         Usuario.cpp \
-        main.cpp
+        main.cpp \
+        menucontenido.cpp
 
 HEADERS += \
     ALBUMES.h \
@@ -27,4 +29,5 @@ HEADERS += \
     MenuAmistades.h \
     Persistencia.h \
     Recursos.h \
-    Usuario.h
+    Usuario.h \
+    menucontenido.h
