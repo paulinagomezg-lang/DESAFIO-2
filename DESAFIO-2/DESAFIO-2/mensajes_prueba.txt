@@ -1,0 +1,4 @@
+mario|ana|01/09/2026|1|Hola Ana, como vas?
+zoe|ana|15/09/2026|0|Nos vemos en clase
+mario|ana|20/10/2026|0|Ya subi las fotos del viaje
+paulina|simon|05/10/2026|0|Hola Simon

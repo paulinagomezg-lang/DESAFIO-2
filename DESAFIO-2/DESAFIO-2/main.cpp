@@ -11,6 +11,10 @@ int main() {
 
     Persistencia::cargarUsuarios("usuarios_prueba.txt");
 
+    Persistencia::cargarAlbumes("albumes.txt");
+
+    Persistencia::cargarMensajes("mensajes.txt");
+
     Persistencia::cargarAmistades("amistades_prueba.txt");
 
     Persistencia::cargarSolicitudes("solicitudes_prueba.txt");
@@ -26,6 +30,10 @@ int main() {
         Persistencia::guardarAmistades("amistades_prueba.txt");
 
         Persistencia::guardarSolicitudes("solicitudes_prueba.txt");
+
+        Persistencia::guardarAlbumes("albumes.txt");
+
+        Persistencia::guardarMensajes("mensajes.txt");
 
         cout << "Cambios guardados.\n";
     }

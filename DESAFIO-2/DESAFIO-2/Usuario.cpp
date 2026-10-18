@@ -46,6 +46,10 @@ void Usuario::copiarDatosDe(const Usuario& otro) {
     indice = otro.indice;
 
     solicitudesRecibidas = otro.solicitudesRecibidas;   // Lista ya hace copia profunda
+
+    albumes = otro.albumes;
+
+    mensajesRecibidos = otro.mensajesRecibidos;
 }
 
 void Usuario::liberar() {
@@ -352,11 +356,8 @@ bool Usuario::aceptarSolicitud(int posicion) {
 
 // ---------------- Fotos de perfil ponderadas ----------------
 
-// Sub-ruta fija del enunciado: /users/(sub-ruta-X-fija)/usuario/...   AJUSTAR al valor del PDF
-
-static const char* RUTA_BASE = "/users/sub-ruta-X";
-
 // SUPUESTO: el peso depende de cuántos amigos en común hay con ese amigo.
+
 // Si el enunciado define otra regla, solo se cambia pesoAmistad().
 static const float PESO_BAJO  = 1.0f;    // 0 amigos en común
 static const float PESO_MEDIO = 2.5f;    // 1 a 5 amigos en común
@@ -367,13 +368,15 @@ void Usuario::rutaFotoPerfil(char* destino, int tamano) const {
 
     destino[0] = '\0';
 
-    Cadena::anexar(destino, tamano, RUTA_BASE);
+    Cadena::anexar(destino, tamano, "/users/");
+
+    Cadena::anexar(destino, tamano, Foto::SUB_RUTA);     // la misma sub-ruta de las fotos
 
     Cadena::anexar(destino, tamano, "/");
 
     Cadena::anexar(destino, tamano, nombreUsuario);
 
-    Cadena::anexar(destino, tamano, "/profile.png");
+    Cadena::anexar(destino, tamano, "/albums/profile.png");
 }
 
 float Usuario::pesoAmistad(int usuario, int amigo) {
@@ -450,4 +453,65 @@ int Usuario::elegirAmigosPonderados(int* elegidos, int k) const {
 
     delete[] pesos;
     return cuantos;
+}
+
+// ---------------- Álbumes y mensajes ----------------
+
+void Usuario::agregarAlbum(const Album& nuevo) {
+
+    albumes.agregar(nuevo);
+}
+
+// Inserción ordenada: se agrega al final y se mueve hacia atrás mientras el
+// anterior sea más reciente. Los del mismo día conservan el orden en que llegaron.
+void Usuario::agregarMensaje(const Mensaje& nuevo) {
+    mensajesRecibidos.agregar(nuevo);
+
+    int i = mensajesRecibidos.tamano() - 1;
+
+    while (i > 0 && nuevo < mensajesRecibidos[i - 1]) {
+
+        mensajesRecibidos[i] = mensajesRecibidos[i - 1];
+
+        i--;
+
+        Recursos::sumar();
+    }
+    mensajesRecibidos[i] = nuevo;
+}
+
+long Usuario::memoriaTotal() {
+
+    long total = (long)capacidad * (long)sizeof(Usuario*);   // arreglo de punteros
+
+    total += matriz.memoria();
+
+    for (int u = 0; u < cantidad; u++) {
+
+        Recursos::sumar();
+
+        const Usuario* x = usuarios[u];
+
+        total += sizeof(Usuario);
+
+        total += Cadena::longitud(x->nombreUsuario) + 1 + Cadena::longitud(x->contrasena) + 1
+                 + Cadena::longitud(x->correo) + 1 + Cadena::longitud(x->ciudad) + 1
+                 + Cadena::longitud(x->pais) + 1;
+
+        // Las listas ya están dentro de sizeof(Usuario): solo se suma su arreglo
+        total += x->solicitudesRecibidas.memoria() - (long)sizeof(x->solicitudesRecibidas);
+
+        total += x->albumes.memoria() - (long)sizeof(x->albumes);
+
+        for (int a = 0; a < x->albumes.tamano(); a++)
+
+            total += (long)x->albumes[a].Memoria() - (long)sizeof(Album);
+
+        total += x->mensajesRecibidos.memoria() - (long)sizeof(x->mensajesRecibidos);
+
+        for (int m = 0; m < x->mensajesRecibidos.tamano(); m++)
+
+            total += (long)x->mensajesRecibidos[m].Memoria() - (long)sizeof(Mensaje);
+    }
+    return total;
 }
