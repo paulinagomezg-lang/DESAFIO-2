@@ -1,0 +1,9 @@
+A|mario|Vacaciones2026|0
+F|Playa1|10/06/2026|2048|3
+F|Playa2|10/06/2026|1980|0
+F|Atardecer|11/06/2026|2500|7
+A|mario|Familia|2
+F|Abuela|24/12/2025|1500|2
+F|Cena|24/12/2025|1700|1
+A|mario|Privado|1
+F|Secreto|01/01/2026|900|0

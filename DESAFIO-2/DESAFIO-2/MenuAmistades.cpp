@@ -3,6 +3,7 @@
 #include "Cadena.h"
 #include "Recursos.h"
 #include <iostream>
+#include "MenuContenido.h"
 
 using std::cout;
 using std::cin;
@@ -154,6 +155,8 @@ void MenuAmistades::administrarAmistades(int usuario) {
              << "1. Ver mis amigos\n"
              << "2. Enviar solicitud de amistad\n"
              << "3. Ver y aceptar solicitudes recibidas\n"
+             << "4. Visitar perfil de un amigo\n"
+             << "5. Mensajes\n"
              << "0. Volver\n"
              << "Opcion: ";
         opcion = leerOpcion();
@@ -161,6 +164,8 @@ void MenuAmistades::administrarAmistades(int usuario) {
         case 1: verAmigos(usuario); break;
         case 2: enviarSolicitud(usuario); break;
         case 3: gestionarSolicitudes(usuario); break;
+        case 4: MenuContenido::visitarPerfil(*Usuario::obtener(usuario)); break;
+        case 5: MenuContenido::administrarMensajes(*Usuario::obtener(usuario)); break;
         case 0: break;
         default: cout << "Opcion no valida.\n";
         }

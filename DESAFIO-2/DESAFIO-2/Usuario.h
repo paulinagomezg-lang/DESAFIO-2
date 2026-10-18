@@ -2,10 +2,11 @@
 #define USUARIO_H
 
 #include <iostream>
-#include "FECHA.h"
+#include "Fecha.h"          // antes decía "FECHA.h"
 #include "Lista.h"
 #include "MatrizAmistad.h"
-
+#include "ALBUMES.h"        // NUEVO
+#include "Mensajes.h"       // NUEVO
 
 class Usuario {
 public:
@@ -95,6 +96,10 @@ public:
 
     const Lista<int>& getSolicitudesRecibidas() const { return solicitudesRecibidas; }
 
+    Lista<Album>   albumes;             // álbumes del usuario
+
+    Lista<Mensaje> mensajesRecibidos;   // ordenados por fecha de envío
+
     // ---- Setters ----
     void setCiudad(const char* nuevaCiudad);
 
@@ -151,6 +156,25 @@ public:
     int elegirAmigosPonderados(int* elegidos, int k) const;   // devuelve cuántos eligió
 
     static float pesoAmistad(int usuario, int amigo);
+
+    // ---- Álbumes y mensajes ----
+    void agregarAlbum(const Album& nuevo);
+
+    int cantidadAlbumes() const { return albumes.tamano(); }
+
+    Album& getAlbum(int i) { return albumes[i]; }
+
+    const Album& getAlbum(int i) const { return albumes[i]; }
+
+    void agregarMensaje(const Mensaje& nuevo);      // lo inserta en orden de fecha
+
+    int cantidadMensajes() const { return mensajesRecibidos.tamano(); }
+
+    Mensaje& getMensaje(int i) { return mensajesRecibidos[i]; }
+
+    const Mensaje& getMensaje(int i) const { return mensajesRecibidos[i]; }
+
+    static long memoriaTotal();   // memoria de usuarios, álbumes, mensajes y matriz
 };
 
 #endif // USUARIO_H

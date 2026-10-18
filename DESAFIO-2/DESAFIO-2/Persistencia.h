@@ -24,8 +24,16 @@ public:
     // Si la línea no cabe en el buffer, la descarta y deja 'demasiadoLarga' en true.
     static bool leerLinea(std::istream& archivo, char* linea, bool& demasiadoLarga);
 
-    // Reemplaza el archivo final por el temporal ya escrito por completo.
-    static bool reemplazarArchivo(const char* rutaTemporal, const char* rutaFinal);
+    static bool cargarAlbumes(const char* ruta);
+
+    static bool guardarAlbumes(const char* ruta);
+
+    static bool cargarMensajes(const char* ruta);
+
+    static bool guardarMensajes(const char* ruta);
+
+    static bool convertirEntero(const char* texto, int& resultado);
+
 };
 
 #endif

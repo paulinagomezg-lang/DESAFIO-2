@@ -4,7 +4,6 @@
 #include "Recursos.h"
 #include <fstream>
 #include <iostream>
-#include <cstdio>
 
 
 bool Persistencia::leerLinea(std::istream& archivo, char* linea, bool& demasiadoLarga) {
@@ -112,13 +111,6 @@ bool Persistencia::cargarUsuarios(const char* ruta) {
     return Usuario::getCantidad() > 0;
 }
 
-bool Persistencia::reemplazarArchivo(const char* rutaTemporal, const char* rutaFinal) {
-
-    std::remove(rutaFinal);                          // en Windows, rename falla si el destino existe
-
-    return std::rename(rutaTemporal, rutaFinal) == 0;
-}
-
 // amistades.txt:  usuarioA|usuarioB   (cada pareja una sola vez)
 
 bool Persistencia::cargarAmistades(const char* ruta) {
@@ -198,13 +190,7 @@ bool Persistencia::cargarAmistades(const char* ruta) {
 
 bool Persistencia::guardarAmistades(const char* ruta) {
 
-    char temporal[512] = "";
-
-    Cadena::anexar(temporal, sizeof(temporal), ruta);
-
-    Cadena::anexar(temporal, sizeof(temporal), ".tmp");     // amistades.txt.tmp
-
-    std::ofstream archivo(temporal);
+    std::ofstream archivo(ruta);          // abre el archivo y reemplaza su contenido
 
     if (!archivo.is_open()) return false;
 
@@ -230,9 +216,7 @@ bool Persistencia::guardarAmistades(const char* ruta) {
     }
     archivo.close();
 
-    if (archivo.fail()) return false;
-
-    return reemplazarArchivo(temporal, ruta);
+    return !archivo.fail();
 }
 
 // solicitudes.txt:  emisor|receptor   (solo solicitudes pendientes)
@@ -324,13 +308,7 @@ bool Persistencia::cargarSolicitudes(const char* ruta) {
 
 bool Persistencia::guardarSolicitudes(const char* ruta) {
 
-    char temporal[512] = "";
-
-    Cadena::anexar(temporal, sizeof(temporal), ruta);
-
-    Cadena::anexar(temporal, sizeof(temporal), ".tmp");
-
-    std::ofstream archivo(temporal);
+    std::ofstream archivo(ruta);
 
     if (!archivo.is_open()) return false;
 
@@ -352,7 +330,5 @@ bool Persistencia::guardarSolicitudes(const char* ruta) {
     }
     archivo.close();
 
-    if (archivo.fail()) return false;
-
-    return reemplazarArchivo(temporal, ruta);
+    return !archivo.fail();
 }
